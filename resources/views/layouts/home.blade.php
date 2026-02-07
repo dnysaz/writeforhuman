@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>writeforhuman | {{ $title ?? '' }}</title>
+
+    <title>@yield('title')</title>
+    <meta name="description" content="@yield('meta_description')">
+    <meta property="og:title" content="@yield('title')">
+    <meta property="og:description" content="@yield('meta_description')">
+    <meta property="og:image" content="@yield('og_image', asset('storage/dwrite-logo/2.png'))">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -23,7 +29,7 @@
     <header class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100/50">
         <nav class="max-w-7xl mx-auto px-4 md:px-8 py-4 sm:py-5 flex justify-between items-center">
             <a href="{{ route('home') }}" class="text-xl sm:text-2xl font-bold tracking-tighter hover:underline transition-all">
-                wfh<span class="text-gray-300">.</span>
+                dwrite.me
             </a>
             
             <div class="flex items-center gap-4 sm:gap-8">

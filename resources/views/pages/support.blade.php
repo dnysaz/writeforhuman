@@ -1,3 +1,6 @@
+@section('title', 'Support | dwrite.me')
+@section('meta_description', 'dwrite.me is a dedicated digital space engineered to filter out synthetic noise, ensuring a pure and focused human reading experience.')
+
 <x-home-layout>
     <main class="max-w-3xl px-6 md:mt-24 mx-auto pb-40">
         <header class="text-center mb-32">        
@@ -19,7 +22,7 @@
                 <div>
                     <h2 class="text-[11px] font-black uppercase tracking-[0.3em] text-gray-400 mb-6">02. Reach Out</h2>
                     <p class="text-[20px] md:text-[24px] tracking-tight mb-10">
-                        You can send an email directly to <span class="text-black font-bold decoration-gray-200 underline underline-offset-4">support@writeforhuman.com</span> or use the simple form below.
+                        You can send an email directly to <span class="text-black font-bold decoration-gray-200 underline underline-offset-4">support@dwrite.me</span> or use the simple form below.
                     </p>
 
                     <form action="#" method="POST" class="space-y-8 mt-12">

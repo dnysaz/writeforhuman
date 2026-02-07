@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'writeforhuman') }}</title>
+        <title>dwrite.me | Login | Register </title>
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,7 +29,7 @@
                 
                 <div class="max-w-md relative z-10 mx-auto">
                     <a href="{{ route('home') }}" class="text-2xl font-bold tracking-tighter mb-16 inline-block hover:underline">
-                        writeforhuman.
+                        dwrite.me.
                     </a>
                     <h2 class="text-4xl xl:text-5xl font-bold leading-[1.1] tracking-tighter mb-8">
                         The internet is drowning in noise. We are the <span class="italic font-light text-gray-400">filter.</span>
@@ -51,7 +51,7 @@
             <div class="flex flex-col min-h-screen bg-white">
                 
                 <div class="lg:hidden p-8">
-                    <a href="{{ route('home') }}" class="text-xl font-bold tracking-tighter">writeforhuman.</a>
+                    <a href="{{ route('home') }}" class="text-xl font-bold tracking-tighter">dwrite.me.</a>
                 </div>
 
                 <div class="flex-1 flex flex-col justify-center px-6 md:px-16 xl:px-24 py-12">

@@ -1,3 +1,5 @@
+@section('title', 'Donate | dwrite.me')
+@section('meta_description', 'dwrite.me is a dedicated digital space engineered to filter out synthetic noise, ensuring a pure and focused human reading experience.')
 <x-home-layout>
     <main class="max-w-3xl px-6 md:mt-24 mx-auto pb-40">
         <header class="text-center mb-32">        
@@ -36,7 +38,7 @@
                 <div>
                     <h2 class="text-[11px] font-black uppercase tracking-[0.3em] text-gray-400 mb-6">03. Impact</h2>
                     <p class="text-[20px] md:text-[24px] tracking-tight">
-                        Every cent is reinvested into the writeforhuman. It covers hosting costs, domain maintenance for <span class="text-black font-bold">writeforhuman.com</span>, and the countless hours spent refining the code to ensure a seamless, friction-filled experience for all.
+                        Every cent is reinvested into the dwrite.me. It covers hosting costs, domain maintenance for <span class="text-black font-bold">dwrite.me</span>, and the countless hours spent refining the code to ensure a seamless, friction-filled experience for all.
                     </p>
                 </div>
             </div>

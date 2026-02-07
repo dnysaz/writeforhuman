@@ -1,3 +1,5 @@
+@section('title', 'category | dwrite.me')
+@section('meta_description', 'dwrite.me is a dedicated digital space engineered to filter out synthetic noise, ensuring a pure and focused human reading experience.')
 <x-home-layout>
     <main class="max-w-7xl mx-auto px-6 md:px-12 pb-32">    
         <header class="hidden py-20 mb-20 border-b border-gray-100 md:flex flex-col md:flex-row md:items-end justify-between gap-8">

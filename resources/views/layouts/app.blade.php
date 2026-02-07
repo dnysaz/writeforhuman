@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard | writeforhuman.</title>
+    <title>dwrite.me | dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
@@ -155,7 +155,7 @@
 <body class="antialiased">
     <nav class="max-w-7xl mx-auto px-6 md:px-8 py-5 flex justify-between items-center bg-white/80 backdrop-blur-md sticky top-0 z-40 border-b border-gray-50">
         <div class="text-2xl hover:underline font-bold ">
-            <a href="{{ route('home') }}">wfh.</a>
+            <a href="{{ route('home') }}">dwrite.me</a>
         </div>
         
         <div class="flex items-center space-x-6">            

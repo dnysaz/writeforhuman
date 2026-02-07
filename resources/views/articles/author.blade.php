@@ -1,3 +1,6 @@
+@section('title', 'dwrite.me/@' . Str::lower($user->username))
+@section('meta_description', 'dwrite.me is a dedicated digital space engineered to filter out synthetic noise, ensuring a pure and focused human reading experience.')
+
 <x-home-layout>
     <main class="max-w-3xl mx-auto px-5 sm:px-8 pb-20 sm:pb-32">
 

@@ -1,3 +1,8 @@
+
+@section('title', 'dwrite.me | '. $article->title))
+@section('meta_description', $article->content)
+@section('og_image', asset('https://res.cloudinary.com/dmnble1qr/image/upload/q_auto,f_auto/' .$article->cover_image))
+
 <x-home-layout>
     <style>
         /* Styling Link di Dalam Artikel */
@@ -84,7 +89,7 @@
                         @endphp
                         
                         <button type="submit" 
-                            class="group flex items-center gap-1.5 transition-all active:scale-90 focus:outline-none"
+                            class="group flex items-center gap-1.5 transition-all active:scale-90 focus:outline-none mt-4"
                             title="{{ $isLiked ? 'Unlike' : 'Like' }}">
                             
                             <svg xmlns="http://www.w3.org/2000/svg" 

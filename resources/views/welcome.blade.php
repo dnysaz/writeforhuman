@@ -1,10 +1,14 @@
+
+@section('title', 'dwrite.me | Write For Human')
+@section('meta_description', 'dwrite.me is a dedicated digital space engineered to filter out synthetic noise, ensuring a pure and focused human reading experience.')
+
 <x-home-layout>
     <div class="max-w-5xl px-6 pt-20 md:pt-32 pb-20 mx-auto overflow-hidden">
         <header class="text-center relative">        
             <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-24 w-[600px] h-[600px] bg-gray-50 rounded-full blur-[120px] -z-10 opacity-60"></div>
     
             <div class="inline-block px-4 py-1.5 mb-8 rounded-full bg-gray-50 border border-gray-100 shadow-sm">
-                <span class="text-[10px] font-black uppercase tracking-[0.4em] text-black">writeforhuman.com</span>
+                <span class="text-[10px] font-black uppercase tracking-[0.4em] text-black">dwrite.me</span>
             </div>
     
             <h1 class="text-4xl md:text-[110px] font-black tracking-[-0.06em] leading-[0.9] md:leading-[0.85] mb-12 text-[#1a1a1a] lowercase">
@@ -40,7 +44,7 @@
                 <h2 class="text-3xl font-bold tracking-tight mb-8 text-[#1a1a1a]">What is this?</h2>
                 <div class="text-xl md:text-2xl text-gray-600 space-y-8 font-light leading-relaxed">
                     <p>
-                        Writeforhuman is a specialized digital environment designed to eliminate synthetic noise. We operate on a single, non-negotiable protocol: 
+                        dwrite.me is a specialized digital environment designed to eliminate synthetic noise. We operate on a single, non-negotiable protocol: 
                         <span class="font-semibold text-black underline underline-offset-8 decoration-1">every character must be typed manually.</span>
                     </p>
                     <p>

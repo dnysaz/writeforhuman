@@ -1,3 +1,6 @@
+@section('title', 'Help | dwrite.me')
+@section('meta_description', 'dwrite.me is a dedicated digital space engineered to filter out synthetic noise, ensuring a pure and focused human reading experience.')
+
 <x-home-layout>
     <main class="max-w-3xl px-6 md:mt-24 mx-auto pb-40">
         <header class="text-center mb-32">        
