@@ -1,5 +1,5 @@
 
-@section('title', 'dwrite.me | Write For Human')
+@section('title', 'dwrite.me | Write for human from human')
 @section('meta_description', 'dwrite.me is a dedicated digital space engineered to filter out synthetic noise, ensuring a pure and focused human reading experience.')
 
 <x-home-layout>
