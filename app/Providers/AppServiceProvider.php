@@ -25,13 +25,13 @@ class AppServiceProvider extends ServiceProvider
         // 1. Kustomisasi Email Verifikasi
         VerifyEmail::toMailUsing(function (object $notifiable, string $url) {
             return (new MailMessage)
-                ->subject('verify your presence.')
-                ->greeting('hello.')
-                ->line('welcome to the writeforhuman. a place for handcrafted thoughts.')
-                ->line('please confirm your email address to begin your journey.')
+                ->subject('Verify your presence.')
+                ->greeting('Hello.')
+                ->line('Welcome to the dwrite.me. a place for handcrafted thoughts.')
+                ->line('Please confirm your email address to begin your journey.')
                 ->action('Confirm Presence', $url)
-                ->line('if you did not create an account, no further action is required.')
-                ->salutation('regards, writeforhuman.');
+                ->line('If you did not create an account, no further action is required.')
+                ->salutation('Regards, dwrite.me.');
         });
 
         // 2. Kustomisasi Email Reset Password
@@ -42,14 +42,14 @@ class AppServiceProvider extends ServiceProvider
             ], false));
 
             return (new MailMessage)
-                ->subject('recover your access.')
-                ->greeting('forgotten?')
-                ->line('it happens to the best of us.')
-                ->line('click the button below to reset ваyour password.')
+                ->subject('Recover your access.')
+                ->greeting('Forgotten?')
+                ->line('It happens to the best of us.')
+                ->line('Click the button below to reset ваyour password.')
                 ->action('Reset Password', $url)
-                ->line('this link will expire in 60 minutes.')
-                ->line('if you did not request this, please ignore this thought.')
-                ->salutation('stay safe, writeforhuman.');
+                ->line('This link will expire in 60 minutes.')
+                ->line('If you did not request this, please ignore this thought.')
+                ->salutation('Stay safe, dwrite.me.');
         });
     }
 }
