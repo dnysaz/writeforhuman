@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\Facades\URL; // Tambahkan ini
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,6 +23,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Paksa semua URL dan Cookie menggunakan HTTPS di production
+        if (config('app.env') === 'production') {
+            URL::forceScheme('https');
+        }
+
         // 1. Kustomisasi Email Verifikasi
         VerifyEmail::toMailUsing(function (object $notifiable, string $url) {
             return (new MailMessage)
@@ -45,7 +51,7 @@ class AppServiceProvider extends ServiceProvider
                 ->subject('Recover your access.')
                 ->greeting('Forgotten?')
                 ->line('It happens to the best of us.')
-                ->line('Click the button below to reset ваyour password.')
+                ->line('Click the button below to reset your password.')
                 ->action('Reset Password', $url)
                 ->line('This link will expire in 60 minutes.')
                 ->line('If you did not request this, please ignore this thought.')
