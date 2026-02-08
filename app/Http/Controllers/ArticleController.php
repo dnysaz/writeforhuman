@@ -20,7 +20,7 @@ class ArticleController extends Controller
         $validated = $request->validate([
             'title' => 'required|max:255',
             'content' => 'required',
-            'category' => 'required|in:general,health,education,technology,food',
+            'category' => 'required|in:life,wellness,mindset,connection,growth,creativity,society,work,technology,general',
             'cover_image' => 'nullable|string', // Menampung pilihan "vibe-x"
             'status' => 'required|in:draft,published'
         ]);
@@ -90,7 +90,7 @@ class ArticleController extends Controller
         $validated = $request->validate([
             'title' => 'required|max:255',
             'content' => 'required',
-            'category' => 'required|in:general,health,education,technology,food',
+            'category' => 'required|in:life,wellness,mindset,connection,growth,creativity,society,work,technology,general',
             'cover_image' => 'nullable|string', // Agar bisa ganti vibe visual
             'status' => 'required|in:draft,published'
         ]);

@@ -1,6 +1,6 @@
 
-@section('title', 'dwrite.me | '. $article->title))
-@section('meta_description', $article->content)
+@section('title', 'dwrite.me | '. $article->title)
+@section('meta_description', str($article->content)->stripTags()->limit(100))
 @section('og_image', asset('https://res.cloudinary.com/dmnble1qr/image/upload/q_auto,f_auto/' .$article->cover_image))
 
 <x-home-layout>
@@ -109,7 +109,7 @@
         </div>
 
         @if($article->cover_image)
-            <div class="relative w-full h-[150px] md:h-[240px] overflow-hidden rounded-[1rem] mb-8 group">
+            <div class="relative w-full h-[480px] overflow-hidden rounded-[1rem] mb-8 group">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-black/5 z-10 pointer-events-none"></div>
                 <img src="https://res.cloudinary.com/dmnble1qr/image/upload/q_auto,f_auto/{{ $article->cover_image }}.jpg" 
                     alt="Visual Vibe"
@@ -136,6 +136,9 @@
         <div class="mt-24 pt-12 border-t border-gray-100">
             <p class="mt-6 text-gray-500 text-sm font-light italic leading-relaxed">
                 This thought was processed through a human nervous system and typed manually. No generative AI, no paste shortcuts.
+            </p>
+            <p class="text-sm text-gray-500">
+                Visuals by <a href="https://www.canva.com/p/huseyinbakikk/" target="_blank" class="underline hover:text-black transition">@huseyinbakikk</a> via Canva
             </p>
         </div>
     </main>

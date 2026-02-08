@@ -109,7 +109,7 @@
                 </div>
             </section>
 
-            <section id="start" class="fade-in opacity-0 pt-16 border-t border-gray-100 text-center pb-32">
+            <section id="start" class="fade-in opacity-0 pt-16 border-t border-gray-100 text-center pb-12">
                 <h2 class="text-4xl font-bold tracking-tight mb-8 text-[#1a1a1a]">Ready to write?</h2>
                 <p class="text-xl md:text-2xl text-gray-500 font-light mb-12 max-w-lg mx-auto leading-relaxed">
                     Join others who believe writing should be an act of thinking, not just producing data.
@@ -119,6 +119,21 @@
                     <a href="{{ route('articles.index') }}" class="px-10 py-4 font-bold bg-white text-[#1a1a1a] border border-gray-200 rounded-full hover:bg-gray-50 transition text-base md:text-lg">Read feed</a>
                 </div>
             </section>
+
+            <div class="py-8 border-t border-gray-100">
+                <div class="flex items-center justify-center gap-3 text-sm">
+                    <span class="tracking-tight text-gray-400">found a bug?</span>
+                    <a href="mailto:danayasa2@gmail.com?subject=Bug Report - dwrite.me" 
+                       class="group flex items-center gap-1.5 text-gray-500 hover:text-black transition-all duration-300">
+                        <span class="border-b border-transparent group-hover:border-black">
+                            report to ketut dana
+                        </span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-0 group-hover:opacity-100 -translate-x-1 group-hover:translate-x-0 transition-all">
+                            <path d="M5 12h14m-7-7 7 7-7 7"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 

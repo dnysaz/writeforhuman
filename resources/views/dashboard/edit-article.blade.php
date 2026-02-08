@@ -123,22 +123,39 @@
                             </div>
                         </label>
                 
-                        @for ($i = 1; $i <= 3; $i++)
-                            @php $vibeId = str_pad($i, 3, '0', STR_PAD_LEFT); @endphp
-                            <label class="relative cursor-pointer group">
-                                <input type="radio" name="cover_image" value="{{ $vibeId }}" class="sr-only" {{ $article->cover_image == $vibeId ? 'checked' : '' }}>
-                                <div class="w-16 h-16 md:w-20 md:h-20 rounded-2xl overflow-hidden border-2 border-transparent transition-all duration-300 group-hover:scale-95 group-[:has(:checked)]:border-black group-[:has(:checked)]:scale-105 group-[:has(:checked)]:shadow-xl">
-                                    <img src="https://res.cloudinary.com/dmnble1qr/image/upload/w_400,c_thumb,q_auto,f_auto/{{ $vibeId }}.jpg" class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-[:has(:checked)]:grayscale-0 transition-all duration-500">
-                                </div>
-                            </label>
-                        @endfor
+                        <div class="grid grid-cols-5 gap-y-6 gap-x-2 md:gap-6 justify-items-center">
+                            @for ($i = 1; $i <= 10; $i++)
+                                @php $vibeId = str_pad($i, 3, '0', STR_PAD_LEFT); @endphp
+                                <label class="relative cursor-pointer group">
+                                    <input type="radio" name="cover_image" value="{{ $vibeId }}" class="sr-only" {{ $article->cover_image == $vibeId ? 'checked' : '' }}>
+                                    <div class="w-16 h-16 md:w-20 md:h-20 rounded-2xl overflow-hidden border-2 border-transparent transition-all duration-300 group-hover:scale-95 group-[:has(:checked)]:border-black group-[:has(:checked)]:scale-105 group-[:has(:checked)]:shadow-xl">
+                                        <img src="https://res.cloudinary.com/dmnble1qr/image/upload/w_400,c_thumb,q_auto,f_auto/{{ $vibeId }}.jpg" 
+                                             class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-[:has(:checked)]:grayscale-0 transition-all duration-500">
+                                    </div>
+                                    
+                                    {{-- Indikator titik kecil jika terpilih (opsional, untuk mempermanis) --}}
+                                    <div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-black rounded-full opacity-0 group-[:has(:checked)]:opacity-100 transition-opacity"></div>
+                                </label>
+                            @endfor
+                        </div>
                     </div>
                 </div>
     
                 <div>
                     <label class="text-[11px] font-black uppercase tracking-[0.2em] text-gray-300 block mb-4 text-center">Category</label>
                     <div class="flex flex-wrap justify-center gap-2">
-                        @foreach(['general', 'health', 'education', 'technology', 'food'] as $cat)
+                        @foreach([
+                                'life',
+                                'wellness',
+                                'mindset',
+                                'connection',
+                                'growth',
+                                'creativity',
+                                'society',
+                                'work',
+                                'technology',
+                                'general'
+                            ] as $cat)
                             <label class="relative cursor-pointer group">
                                 <input type="radio" name="category" value="{{ $cat }}" class="sr-only" {{ $article->category == $cat ? 'checked' : '' }}>
                                 <div class="category-chip transition-all text-center text-[13px] font-bold px-6 py-3 rounded-full border border-gray-100 group-hover:bg-gray-50 group-[:has(:checked)]:bg-black group-[:has(:checked)]:text-white group-[:has(:checked)]:border-black">
