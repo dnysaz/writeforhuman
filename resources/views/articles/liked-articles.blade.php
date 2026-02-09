@@ -8,7 +8,7 @@
                 <h1 class="text-5xl md:text-7xl font-bold tracking-tighter mb-4 text-[#1a1a1a]">
                     Liked Articles
                 </h1>
-                <p class="text-xl md:text-2xl text-gray-500 font-light leading-relaxed tracking-tight italic">
+                <p class="text-xl md:text-2xl text-gray-500 font-light leading-relaxed tracking-tight ">
                     Thoughts that echoed within your nervous system, <br class="hidden md:block"> preserved for deeper reflection.
                 </p>
             </div>
@@ -44,7 +44,7 @@
                             </h2>
                         </a>
                         
-                        <p class="text-gray-500 text-[17px] leading-relaxed line-clamp-4 font-light italic">
+                        <p class="text-gray-500 text-[17px] leading-relaxed line-clamp-4 font-light ">
                             {{ Str::limit(strip_tags($article->content), 180) }}
                         </p>
                     </div>
@@ -73,7 +73,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-gray-200 mb-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
                     </svg>
-                    <p class="text-xl text-gray-400 font-light italic">You haven't preserved any resonances yet.</p>
+                    <p class="text-xl text-gray-400 font-light ">You haven't preserved any resonances yet.</p>
                     <a href="{{ route('home') }}" class="mt-6 text-[12px] font-black uppercase tracking-widest text-black underline underline-offset-8">Explore thoughts</a>
                 </div>
             @endforelse
