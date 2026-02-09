@@ -8,7 +8,7 @@
     <meta name="description" content="@yield('meta_description')">
     <meta property="og:title" content="@yield('title')">
     <meta property="og:description" content="@yield('meta_description')">
-    <meta property="og:image" content="@yield('og_image', asset('storage/dwrite-logo/2.png'))">
+    <meta property="og:image" content="@yield('og_image', asset('assets/logo/dw.png'))">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
