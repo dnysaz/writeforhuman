@@ -175,7 +175,7 @@
         </div>
     </div>
 
-   <script>
+    <script>
         document.addEventListener('DOMContentLoaded', () => {
             const editor = document.getElementById('editor');
             const titleInput = document.querySelector('.editable-title');
@@ -186,6 +186,25 @@
             const slugHeader = document.getElementById('article-slug').value;
             const publishModal = document.getElementById('publishModal');
             let toastTimer;
+
+            // --- FITUR AUTO-RESTORE UNTUK EDIT (Unique by Slug) ---
+            const storageKeyTitle = `dwrite_edit_title_${slugHeader}`;
+            const storageKeyContent = `dwrite_edit_content_${slugHeader}`;
+
+            const restoreDraft = () => {
+                const savedTitle = localStorage.getItem(storageKeyTitle);
+                const savedContent = localStorage.getItem(storageKeyContent);
+
+                // Jika ada draft tersimpan yang BERBEDA dengan yang baru diload dari DB
+                // Kita tawarkan atau otomatis kembalikan (disini kita otomatis kembalikan)
+                if (savedTitle || savedContent) {
+                    if (savedTitle) titleInput.value = savedTitle;
+                    if (savedContent) editor.innerHTML = savedContent;
+                    
+                    updateWordCount();
+                    setTimeout(() => showToast("Restored unsaved changes for this thought."), 500);
+                }
+            };
 
             const showToast = (message, type = 'info') => {
                 clearTimeout(toastTimer);
@@ -212,6 +231,9 @@
                     });
 
                     if (response.ok) {
+                        // Bersihkan storage jika artikel dihapus
+                        localStorage.removeItem(storageKeyTitle);
+                        localStorage.removeItem(storageKeyContent);
                         window.location.href = "{{ route('dashboard') }}?erased=1";
                     } else {
                         showToast("Failed to erase. Try again.", "error");
@@ -231,7 +253,20 @@
                 const text = editor.innerText.trim();
                 wordCountDisplay.innerText = text ? text.split(/\s+/).length : 0;
             };
-            editor.addEventListener('input', updateWordCount);
+
+            // --- AUTO SAVE LOGIC ---
+            editor.addEventListener('input', () => {
+                updateWordCount();
+                localStorage.setItem(storageKeyContent, editor.innerHTML);
+            });
+
+            titleInput.addEventListener('input', () => {
+                localStorage.setItem(storageKeyTitle, titleInput.value);
+            });
+
+            // Jalankan restore & update wordcount saat load
+            restoreDraft();
+            updateWordCount();
 
             // Update Logic
             window.submitArticle = async (status) => {
@@ -258,6 +293,9 @@
                     });
 
                     if (response.ok) {
+                        // BERSIHKAN LocalStorage setelah sukses update
+                        localStorage.removeItem(storageKeyTitle);
+                        localStorage.removeItem(storageKeyContent);
                         window.location.href = "{{ route('dashboard') }}?updated=1";
                     } else {
                         const err = await response.json();

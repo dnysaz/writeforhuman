@@ -126,7 +126,7 @@
         </div>
     </div>
 
-   <script>
+    <script>
         document.addEventListener('DOMContentLoaded', () => {
             const editor = document.getElementById('editor');
             const titleInput = document.querySelector('.editable-title');
@@ -137,6 +137,21 @@
             const publishModal = document.getElementById('publishModal');
             
             let toastTimer;
+
+            // --- FITUR AUTO-RESTORE (Baru) ---
+            const restoreDraft = () => {
+                const savedTitle = localStorage.getItem('dwrite_temp_title');
+                const savedContent = localStorage.getItem('dwrite_temp_content');
+
+                if (savedTitle || savedContent) {
+                    if (savedTitle) titleInput.value = savedTitle;
+                    if (savedContent) editor.innerHTML = savedContent;
+                    
+                    updateWordCount();
+                    // Kasih tau user kalau tulisannya diselamatkan
+                    setTimeout(() => showToast("Your unsaved words have been restored."), 500);
+                }
+            };
 
             // 1. Word Counter
             const updateWordCount = () => {
@@ -169,8 +184,19 @@
             editor.addEventListener('paste', (e) => preventPaste(e, "Every word must be typed. No paste."));
             editor.addEventListener('drop', (e) => preventPaste(e, "Dropped content is blocked. Type your thoughts."));
 
-            // 4. Editor Logic (Auto-link & Input)
-            editor.addEventListener('input', updateWordCount);
+            // 4. Editor Logic & AUTO-SAVE (Update)
+            editor.addEventListener('input', () => {
+                updateWordCount();
+                // Simpan setiap ketikan
+                localStorage.setItem('dwrite_temp_content', editor.innerHTML);
+            });
+
+            titleInput.addEventListener('input', () => {
+                localStorage.setItem('dwrite_temp_title', titleInput.value);
+            });
+
+            // Jalankan restore saat load
+            restoreDraft();
 
             // 5. Modal Management
             window.openPublishModal = () => {
@@ -205,7 +231,7 @@
 
                 const data = {
                     title: titleInput.value,
-                    content: editor.innerHTML, // Menggunakan HTML untuk menyimpan format link otomatis
+                    content: editor.innerHTML, 
                     category: selectedCategory ? selectedCategory.value : 'general',
                     cover_image: (selectedVibe && selectedVibe.value !== "") ? selectedVibe.value : null,
                     status: status 
@@ -225,6 +251,10 @@
                     });
 
                     if (response.ok) {
+                        // BERSIHKAN LOCALSTORAGE setelah berhasil simpan ke database
+                        localStorage.removeItem('dwrite_temp_title');
+                        localStorage.removeItem('dwrite_temp_content');
+                        
                         window.location.href = "{{ route('dashboard') }}?success=1";
                     } else {
                         const err = await response.json();
