@@ -7,7 +7,7 @@
                 <h1 class="text-5xl md:text-7xl font-bold tracking-tighter mb-4 text-[#1a1a1a]">
                     Category.
                 </h1>
-                <p class="text-xl md:text-2xl text-gray-500 font-light leading-relaxed tracking-tight italic">
+                <p class="text-xl md:text-2xl text-gray-500 font-light leading-relaxed tracking-tight ">
                     Exploring thoughts preserved under the <span class="text-black font-bold">{{ $category }}</span> archive.
                 </p>
             </div>
@@ -38,8 +38,8 @@
                             </h2>
                         </a>
                         
-                        <p class="text-gray-500 text-[17px] leading-relaxed line-clamp-4 font-light italic">
-                            {{ Str::limit(strip_tags($article->content), 180) }}
+                        <p class="text-gray-500 text-[17px] leading-relaxed line-clamp-4 font-light ">
+                            {{ Str::limit(strip_tags(html_entity_decode($article->content)), 180) }}
                         </p>
                     </div>
 
@@ -56,15 +56,11 @@
                                 {{ $article->user->name }}
                             </a>
                         </div>
-                        
-                        <span class="text-[10px] font-bold text-gray-300 uppercase tracking-widest">
-                            {{ $article->reading_time }} min read
-                        </span>
                     </div>
                 </article>
             @empty
                 <div class="col-span-full py-40 text-center bg-gray-50 rounded-[40px] border border-dashed border-gray-100 flex flex-col items-center justify-center">
-                    <p class="text-xl text-gray-400 font-light italic">No thoughts have been shared in this category yet.</p>
+                    <p class="text-xl text-gray-400 font-light ">No thoughts have been shared in this category yet.</p>
                     <a href="{{ route('home') }}" class="mt-6 text-[12px] font-black uppercase tracking-widest text-black underline underline-offset-8">Back to home</a>
                 </div>
             @endforelse
