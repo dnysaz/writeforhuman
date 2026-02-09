@@ -26,7 +26,7 @@
                         <time class="text-sm font-semibold text-gray-400">
                             {{ $article->created_at->format('M d, Y') }}
                         </time>
-                        <span class="text-[11px] font-bold text-gray-400 px-2 py-0.5 border border-gray-100 rounded uppercase tracking-widest">
+                        <span class="text-[11px] font-bold text-gray-500 px-2 py-0.5 border border-gray-100 rounded">
                             <a href="{{ route('articles.category', $article->category) }}">{{ $article->category }}</a>
                         </span>
                     </div>
