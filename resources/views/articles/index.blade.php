@@ -40,7 +40,7 @@
                         </a>
                         
                         <p class="text-gray-500 text-[17px] leading-relaxed line-clamp-4 font-light">
-                            {{ Str::limit(strip_tags($article->content), 180) }}
+                            {{ Str::limit(strip_tags(html_entity_decode($article->content)), 180) }}
                         </p>
                     </div>
 
