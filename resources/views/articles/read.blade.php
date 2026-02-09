@@ -4,7 +4,6 @@
 @section('og_image', asset('https://res.cloudinary.com/dmnble1qr/image/upload/q_auto,f_auto/' .$article->cover_image))
 
 <x-home-layout>
-<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <style>
         /* Styling Link di Dalam Artikel */
         #articleContent a {

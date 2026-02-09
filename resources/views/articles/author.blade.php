@@ -4,97 +4,107 @@
 <x-home-layout>
     <main class="max-w-3xl mx-auto px-5 sm:px-8 pb-20 sm:pb-32">
 
-        <header class="mb-16 md:mb-24 mt-8 md:mt-12 px-1">
-            <div class="flex flex-row {{ !$user->show_stats ? 'items-center' : 'items-start' }} gap-8 md:gap-14">
+        <header class="mb-12 mt-8 px-4 md:px-0 flex flex-col items-center md:items-start text-center md:text-left">
+    
+            <div class="w-full flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-10">
                 
-                <div class="w-20 h-20 md:w-32 md:h-32 rounded-full bg-[#1a1a1a] flex-shrink-0 overflow-hidden shadow-2xl shadow-black/10 rotate-[-2deg]">
-                    @if($user->avatar)
-                        <img src="{{ $user->avatar }}" alt="{{ $user->name }}" class="w-full h-full object-cover grayscale">
-                    @else
-                        <div class="w-full h-full flex items-center justify-center text-3xl md:text-5xl font-black text-white">
-                            {{ strtoupper(substr($user->name, 0, 1)) }}
-                        </div>
-                    @endif
-                </div>
-                
-                <div class="flex-1">
-                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                        <div class="group relative">
-                            <div class="flex items-center gap-3">
-                                <h1 class="text-2xl md:text-4xl font-black tracking-tighter text-[#1a1a1a] leading-none {{ ($user->show_bio || auth()->id() === $user->id) ? 'mb-3' : '' }}">
-                                    {{ $user->name }}
-                                </h1>
-        
-                                @auth
-                                    @if(auth()->id() === $user->id)
-                                        <a href="{{ route('profile.setting') }}" class="opacity-0 group-hover:opacity-100 transition-opacity p-2 hover:bg-gray-50 rounded-full text-gray-400 hover:text-black" title="Edit Profile">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                                <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
-                                            </svg>
-                                        </a>
-                                    @endif
-                                @endauth
+                <div class="relative flex-shrink-0">
+                    <div class="w-24 h-24 md:w-32 md:h-32 rounded-full bg-[#1a1a1a] overflow-hidden shadow-2xl shadow-black/10 transition-transform duration-500 hover:scale-105">
+                        @if($user->avatar)
+                            <img src="{{ asset('storage/' . $user->avatar) }}" alt="{{ $user->name }}" class="w-full h-full object-cover grayscale">
+                        @else
+                            <div class="w-full h-full flex items-center justify-center text-4xl md:text-6xl font-black text-white/90">
+                                {{ strtoupper(substr($user->name, 0, 1)) }}
                             </div>
-                            
-                            @if(($user->show_bio || auth()->id() === $user->id) && $user->url)
-                                <a href="{{ $user->url }}" target="_blank" class="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-black underline underline-offset-4 decoration-gray-200 hover:decoration-black transition-all">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                        @endif
+                    </div>
+                    
+                    <div class="absolute -top-1 -right-1 md:hidden" x-data="{ open: false }">
+                        <button @click="open = !open" @click.away="open = false" class="p-2 bg-white rounded-full shadow-lg border border-gray-100 text-gray-400 focus:outline-none">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/></svg>
+                        </button>
+                        <div x-show="open" x-transition.opacity class="absolute right-0 md:left-0 md:right-auto mt-2 w-44 bg-white border border-gray-100 rounded-xl shadow-2xl z-50 overflow-hidden text-left">
+                            <button onclick="navigator.share({ title: '{{ $user->name }}', url: window.location.href })" class="w-full flex items-center gap-3 px-4 py-3 text-[10px] font-black  text-gray-600 hover:bg-gray-50 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                                </svg>
+                                <span>Share Profile</span>
+                            </button>
+                        
+                            @auth @if(auth()->id() === $user->id)
+                                <a href="{{ route('profile.setting') }}" class="flex items-center gap-3 px-4 py-3 text-[10px] font-black  text-gray-600 hover:bg-gray-50 border-t border-gray-50 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                     </svg>
-                                    {{ $user->url_name ?? 'Portfolio' }}
+                                    <span>Update Profile</span>
                                 </a>
-                            @endif
+                            @endif @endauth
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="flex-1 flex flex-col items-center md:items-start w-full">
+                    <div class="flex items-center gap-4 justify-center md:justify-start">
+                        <h1 class="text-3xl md:text-5xl font-black tracking-tighter text-black leading-none">
+                            {{ $user->name }}
+                        </h1>
+        
+                        <div class="hidden md:block relative" x-data="{ open: false }">
+                            <button @click="open = !open" @click.away="open = false" class="p-1 text-gray-300 hover:text-black transition-colors focus:outline-none">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"/></svg>
+                            </button>
+                            <div x-show="open" x-transition.opacity class="absolute right-0 md:left-0 md:right-auto mt-2 w-44 bg-white border border-gray-100 rounded-xl shadow-2xl z-50 overflow-hidden text-left">
+                                <button onclick="navigator.share({ title: '{{ $user->name }}', url: window.location.href })" class="w-full flex items-center gap-3 px-4 py-3 text-[10px] font-black  text-gray-600 hover:bg-gray-50 transition-colors">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                                    </svg>
+                                    <span>Share Profile</span>
+                                </button>
+                            
+                                @auth @if(auth()->id() === $user->id)
+                                    <a href="{{ route('profile.setting') }}" class="flex items-center gap-3 px-4 py-3 text-[10px] font-black text-gray-600 hover:bg-gray-50 border-t border-gray-50 transition-colors">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                        <span>Update Profile</span>
+                                    </a>
+                                @endif @endauth
+                            </div>
                         </div>
                     </div>
         
-                    @if($user->show_stats || auth()->id() === $user->id)
-                        <div class="relative group/stats">
-                            <div class="flex gap-10 md:gap-16 py-6 border-y border-gray-50 mt-6 animate-in fade-in slide-in-from-top-1 duration-500">
-                                <div class="flex flex-col">
-                                    <span class="text-xl md:text-2xl font-black text-black">
-                                        {{ $user->articles()->where('status', 'published')->count() }}
-                                    </span>
-                                    <span class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-300">Articles</span>
-                                </div>
-                            
-                                <div class="flex flex-col">
-                                    <span class="text-xl md:text-2xl font-black text-black">
-                                        {{ number_format($totalAppreciations) }}
-                                    </span> 
-                                    <span class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-300">Likes</span>
-                                </div>
-                            
-                                <a href="{{ route('articles.liked') }}" class="group flex flex-col">
-                                    <span class="text-xl md:text-2xl font-black text-black group-hover:underline decoration-2 underline-offset-4 transition-all">
-                                        {{ $user->likedArticles()->count() }}
-                                    </span>
-                                    <span class="text-[10px] font-black uppercase tracking-[0.2em] text-gray-300 group-hover:text-black transition-colors">Liked</span>
-                                </a>
-                            </div>
+                    @if(($user->show_bio || auth()->id() === $user->id) && $user->url)
+                        <a href="{{ $user->url }}" target="_blank" class="text-[14px] underline font-bold text-gray-400 hover:text-black transition-colors mt-4">
+                            {{ str_replace(['http://', 'https://'], '', $user->url) }}
+                        </a>
+                    @endif
         
-                            @if(!$user->show_stats && auth()->id() === $user->id)
-                                <div class="absolute -bottom-5 left-0 flex items-center gap-1.5 opacity-50">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
-                                    <span class="text-[9px] font-bold uppercase tracking-widest text-gray-400">Hidden for public</span>
-                                </div>
-                            @endif
+                    @if($user->show_stats || auth()->id() === $user->id)
+                        <div class="flex items-center justify-center md:justify-start gap-8 md:gap-12 mt-6">
+                            <div class="flex flex-col">
+                                <span class="text-xl md:text-2xl font-black text-black leading-none">{{ $user->articles()->where('status', 'published')->count() }}</span>
+                                <span class="text-[9px] font-bold   text-gray-300 mt-2">Posts</span>
+                            </div>
+                            <div class="flex flex-col border-x border-gray-50 px-8 md:px-0 md:border-none">
+                                <span class="text-xl md:text-2xl font-black text-black leading-none">{{ number_format($totalAppreciations) }}</span>
+                                <span class="text-[9px] font-bold   text-gray-300 mt-2">Likes</span>
+                            </div>
+                            <a href="{{ route('articles.liked') }}" class="flex flex-col group">
+                                <span class="text-xl md:text-2xl font-black text-black leading-none group-hover:underline decoration-2 underline-offset-4 transition-all">{{ $user->likedArticles()->count() }}</span>
+                                <span class="text-[9px] font-bold   text-gray-300 group-hover:text-black mt-2">Saved</span>
+                            </a>
                         </div>
                     @endif
                 </div>
             </div>
         
             @if($user->show_bio || auth()->id() === $user->id)
-                <div class="mt-10 max-w-2xl relative">
-                    <p class="text-[15px] md:text-[18px] text-gray-600 leading-relaxed ">
-                        {{ $user->bio ?? '"Every word typed here is a conscious choice. No AI, no shortcuts, just friction."' }}
+                <div class="mt-10 max-w-2xl w-full">
+                    <p class="text-[15px] md:text-[18px] text-gray-500 font-medium leading-relaxed italic md:not-italic">
+                        {{ $user->bio ?? '"This space is yours. Tell the world who is behind these thoughts."' }}
                     </p>
-        
-                    @if(!$user->show_bio && auth()->id() === $user->id)
-                        <div class="mt-2 flex items-center gap-1.5 opacity-50">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="text-gray-400"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
-                            <span class="text-[9px] font-bold uppercase tracking-widest text-gray-400">Bio Hidden from public</span>
-                        </div>
-                    @endif
                 </div>
             @endif
         </header>
