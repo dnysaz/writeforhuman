@@ -23,7 +23,7 @@ class DashboardController extends Controller
 
         $articles = Auth::user()->articles()
                         ->orderBy('created_at', 'desc')
-                        ->paginate(1);
+                        ->paginate(12);
     
         return view('dashboard.all-articles', compact('articles'));
     }
