@@ -170,6 +170,7 @@
                         @endif
                     </div>
                 </div>
+
             
                 <div id="userDropdown" class="hidden absolute right-0 mt-4 w-64 bg-white border border-gray-100 rounded-[2rem] shadow-2xl shadow-black/5 overflow-hidden z-[110]">
                     <div class="p-2 space-y-1">

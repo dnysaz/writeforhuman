@@ -76,7 +76,12 @@ Route::middleware(['auth', 'verified'])->group(callback: function () {
 
     Route::get('/settings/profile', action: [AuthorController::class, 'profile'])->name('profile.setting');
     Route::patch('/settings/profile', action: [AuthorController::class, 'update'])->name('profile.setting.update');
-});
+
+    Route::post('/mark-notifications-read', function () {
+            auth()->user()->unreadNotifications->markAsRead();
+            return back();
+        })->name('notifications.markAllRead');
+    });
 
 
 /*

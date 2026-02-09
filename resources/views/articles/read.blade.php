@@ -152,7 +152,7 @@
             </div>
         @endif
 
-        <h1 class="text-4xl md:text-6xl font-bold mb-14 tracking-[-0.04em] leading-[0.95] text-[#1a1a1a]">
+        <h1 class="text-3xl md:text-5xl font-bold mb-14 tracking-[-0.04em] leading-[0.95] text-[#1a1a1a]">
             {{ $article->title }}
         </h1>
 

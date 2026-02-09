@@ -26,7 +26,7 @@
 </head>
 <body class="bg-white text-[#1a1a1a] antialiased">
     
-    <header class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100/50">
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-gray-100/50" x-data="{ openNotify: false }">
         <nav class="max-w-7xl mx-auto px-4 md:px-8 py-4 sm:py-5 flex justify-between items-center">
             <a href="{{ route('home') }}" class="text-xl sm:text-2xl font-bold tracking-tighter hover:underline transition-all">
                 dwrite.me
@@ -34,19 +34,90 @@
             
             <div class="flex items-center gap-4 sm:gap-8">
                 @auth
-                    <div class="flex items-center gap-5 sm:gap-7">
-                        <a href="{{ route('articles.index') }}" class="xs:inline-block text-[13px] sm:text-[15px] font-bold text-gray-700 hover:text-black hover:underline decoration-2 underline-offset-4 transition-all">
+                    <div class="relative">
+                        <button @click="openNotify = !openNotify" class="relative group p-2 rounded-full hover:bg-gray-50 transition-all">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 text-gray-700 group-hover:text-black">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31a8.967 8.967 0 0 1-2.312-6.022c0-3.472-1.684-6.611-4.478-8.152a2.25 2.25 0 0 0-4.593 0c-2.794 1.541-4.478 4.68-4.478 8.152a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+                            </svg>
+                            
+                            @if(Auth::user()->unreadNotifications->count() > 0)
+                                <span class="absolute top-1 right-1 flex h-4 w-4">
+                                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-black opacity-20"></span>
+                                    <span class="relative inline-flex rounded-full h-4 w-4 bg-black text-[9px] font-black text-white items-center justify-center">
+                                        {{ Auth::user()->unreadNotifications->count() }}
+                                    </span>
+                                </span>
+                            @endif
+                        </button>
+    
+                        <div 
+                            x-show="openNotify" 
+                            @click.away="openNotify = false"
+                            x-transition:enter="transition ease-out duration-200"
+                            x-transition:enter-start="opacity-0 scale-95 translate-y-[-10px]"
+                            x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+                            {{-- Update class: fixed & inset untuk mobile, absolute untuk desktop --}}
+                            class="fixed md:absolute left-4 right-4 md:left-auto md:right-0 mt-4 md:w-[450px] bg-white border border-gray-600 rounded-[1rem] z-50"
+                            style="display: none;"
+                        >
+                            <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50/50">
+                                <h4 class="text-sm font-black text-black">Notifications</h4>
+                                @if(Auth::user()->unreadNotifications->count() > 0)
+                                    <span class="text-[10px] text-black font-black bg-gray-200 px-2 py-1 rounded-full">{{ Auth::user()->unreadNotifications->count() }} New</span>
+                                @endif
+                            </div>
+
+                            <div class="max-h-[60vh] md:max-h-[400px] overflow-y-auto">
+                                @forelse(Auth::user()->unreadNotifications as $notification)
+                                    <a href="{{ route('articles.show', $notification->data['article_slug']) }}" class="block p-6 hover:bg-gray-50 transition-all border-b border-gray-100 last:border-0 group">
+                                        <div class="flex items-start gap-4">
+                                            <div class="w-2 h-2 mt-2 bg-black rounded-full flex-shrink-0"></div>
+                                            <div class="flex-1">
+                                                <p class="text-[14px] leading-tight mb-1">
+                                                    <span class="font-bold text-black">{{ $notification->data['user_name'] ?? 'Someone' }}</span> 
+                                                    <span class="text-gray-500 font-light">responded to</span> 
+                                                    <span class="font-bold text-black underline decoration-gray-400">"{{ $notification->data['article_title'] }}"</span>
+                                                </p>
+                                                <p class="text-[13px] text-gray-600 font-light line-clamp-2 italic mb-2">
+                                                    "{{ $notification->data['comment_body'] ?? '' }}"
+                                                </p>
+                                                <span class="text-[10px] font-black uppercase tracking-widest text-gray-400 group-hover:text-black transition-colors">
+                                                    {{ $notification->created_at->diffForHumans() }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                @empty
+                                    <div class="p-10 text-center">
+                                        <p class="text-gray-400 text-sm font-medium italic">All caught up! No new responses.</p>
+                                    </div>
+                                @endforelse
+                            </div>
+
+                            @if(Auth::user()->unreadNotifications->count() > 0)
+                            <form action="{{ route('notifications.markAllRead') }}" method="POST">
+                                @csrf
+                                <button type="submit" class="w-full py-4 text-gray-800 text-center text-[14px] font-black  hover:underline">
+                                    Mark all as read
+                                </button>
+                            </form>
+                            @endif
+                        </div>
+                    </div>
+    
+                    <div class="flex items-center gap-5 sm:gap-7 border-l border-gray-100 pl-4 sm:pl-8">
+                        <a href="{{ route('articles.index') }}" class=" text-[13px] sm:text-[15px] font-bold text-gray-700 hover:text-black hover:underline decoration-2 underline-offset-4 transition-all">
                             Feed
                         </a>
                         
-                        <a href="{{ route('articles.liked') }}" class="xs:inline-block text-[13px] sm:text-[15px] font-bold text-gray-700 hover:text-black hover:underline decoration-2 underline-offset-4 transition-all">
+                        <a href="{{ route('articles.liked') }}" class=" text-[13px] sm:text-[15px] font-bold text-gray-700 hover:text-black hover:underline decoration-2 underline-offset-4 transition-all">
                             Liked
                         </a>
+    
+                        <a href="{{ route('dashboard') }}" class="inline-flex items-center bg-[#1a1a1a] text-white px-4 py-2 sm:px-6 sm:py-2.5 rounded-full text-[11px] sm:text-sm font-black tracking-widest hover:bg-black transition-all shadow-lg shadow-black/5">
+                            Write<span class="hidden sm:inline">&nbsp;New</span>
+                        </a>
                     </div>
-                    
-                    <a href="{{ route('dashboard') }}" class="inline-flex items-center bg-[#1a1a1a] text-white px-4 py-2 sm:px-6 sm:py-2.5 rounded-full text-[11px] sm:text-sm font-black tracking-widest hover:bg-black transition-all shadow-lg shadow-black/5">
-                        <span class="sm:inline">Write</span><span class="hidden sm:inline">&nbsp;New</span>
-                    </a>
                 @else
                     <a href="{{ route('login') }}" class="text-[13px] sm:text-[15px] font-bold text-gray-400 hover:text-black hover:underline decoration-2 underline-offset-4 transition-all">
                         Login

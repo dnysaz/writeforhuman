@@ -9,14 +9,16 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // Mengambil artikel milik user (terbaru di atas)
-        // Kita gunakan relasi articles() yang sudah kita buat di model User
-        $articles = Auth::user()->articles()
+        $user = Auth::user();
+        
+        $articles = $user->articles()
                         ->orderBy('created_at', 'desc')
                         ->get();
 
-        // Mengirim data $articles ke view dashboard.blade.php
-        return view('dashboard.dashboard', compact('articles'));
+        // Mengambil notifikasi yang belum dibaca
+        $notifications = $user->unreadNotifications;
+
+        return view('dashboard.dashboard', compact('articles', 'notifications'));
     }
     public function articles()
     {
