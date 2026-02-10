@@ -44,6 +44,8 @@
 
         <input type="text" class="editable-title w-full text-4xl md:text-5xl font-bold border-none focus:ring-0 placeholder-gray-200 mb-8 bg-transparent" placeholder="Give it a title..." value="{{ $article->title }}" autofocus>
         
+        @include('includes.rich-editor')
+        
         <div id="editor" 
              class="editable-content focus:outline-none min-h-[60vh] text-[19px] md:text-[21px] font-light leading-relaxed text-[#1a1a1a]" 
              contenteditable="true" 
@@ -292,14 +294,18 @@
                         body: JSON.stringify(data)
                     });
 
+                    // Ambil datanya dulu (termasuk slug dari Controller)
+                    const result = await response.json();
+
                     if (response.ok) {
                         // BERSIHKAN LocalStorage setelah sukses update
                         localStorage.removeItem(storageKeyTitle);
                         localStorage.removeItem(storageKeyContent);
-                        window.location.href = "{{ route('dashboard') }}?updated=1";
+                        
+                        // Gunakan cara manual yang sama dengan store
+                        window.location.href = "/read/" + result.slug;
                     } else {
-                        const err = await response.json();
-                        showToast(err.message || "Failed to update.", "error");
+                        showToast(result.message || "Failed to update.", "error");
                     }
                 } catch (e) {
                     showToast("Connection lost. Words are safe.", "error");

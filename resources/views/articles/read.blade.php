@@ -159,6 +159,19 @@
         <div id="articleContent" class="text-[20px] md:text-[22px] text-[#1a1a1a] leading-[1.6] font-light tracking-tight article-content italic-quotes">
             {!! $article->content !!}
         </div>
+        
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                // Cari semua tag pre di dalam konten dan paksa agar bisa scroll horizontal
+                const codeBlocks = document.querySelectorAll('#articleContent pre');
+                codeBlocks.forEach(block => {
+                    block.style.overflowX = 'auto';
+                    block.style.whiteSpace = 'pre'; // Memaksa teks memanjang ke kanan, bukan bungkus ke bawah
+                    block.style.wordBreak = 'normal';
+                    block.style.wordWrap = 'normal';
+                });
+            });
+        </script>
 
         <div id="linkPreviewContainer" class="mt-12 space-y-4"></div>
 

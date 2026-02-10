@@ -14,8 +14,7 @@ class ArticleController extends Controller
 {
     /**
      * Menyimpan artikel baru (Handcrafted)
-     */
-    public function store(Request $request)
+     */public function store(Request $request)
     {
         $validated = $request->validate([
             'title' => 'required|max:255',
@@ -24,19 +23,20 @@ class ArticleController extends Controller
             'cover_image' => 'nullable|string', // Menampung pilihan "vibe-x"
             'status' => 'required|in:draft,published'
         ]);
-    
+
         try {
             // Logika menghitung statistik tulisan
+            // Menggunakan mb_strlen atau metode lain jika strip_tags kurang akurat untuk karakter tertentu
             $words = str_word_count(strip_tags($request->content));
             $readingTime = ceil($words / 200);
-    
-            // Membuat slug unik secara otomatis dari judul
-            $slug = Str::slug($validated['title']);
+
+            // Membuat slug dasar dari judul
+            $baseSlug = Str::slug($validated['title']);
             
-            // Cek jika slug sudah ada, tambahkan angka unik di belakangnya
-            $count = Article::where('slug', 'LIKE', "{$slug}%")->count();
-            $finalSlug = $count ? "{$slug}-" . ($count + 1) : $slug;
-    
+            // Membuat slug unik dengan tambahan string random (seperti tTKx8)
+            // Ini memastikan URL selalu unik dan sesuai dengan yang kamu harapkan
+            $finalSlug = $baseSlug . '-' . Str::random(5);
+
             $article = $request->user()->articles()->create([
                 'title' => $validated['title'],
                 'slug' => $finalSlug,
@@ -47,13 +47,14 @@ class ArticleController extends Controller
                 'word_count' => $words,
                 'reading_time' => $readingTime,
             ]);
-    
+
             return response()->json([
                 'status' => 'success',
                 'message' => 'Your handcrafted thought is preserved.',
+                'slug' => $finalSlug, // Slug ini yang akan ditangkap oleh window.location.href
                 'data' => $article
             ], 201);
-    
+
         } catch (\Exception $e) {
             return response()->json([
                 'status' => 'error',
@@ -83,6 +84,7 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $slug)
     {
+        // Mencari artikel berdasarkan slug milik user yang sedang login
         $article = Article::where('user_id', Auth::id())
                           ->where('slug', $slug)
                           ->firstOrFail();
@@ -91,7 +93,7 @@ class ArticleController extends Controller
             'title' => 'required|max:255',
             'content' => 'required',
             'category' => 'required|in:life,wellness,mindset,connection,growth,creativity,society,work,technology,general',
-            'cover_image' => 'nullable|string', // Agar bisa ganti vibe visual
+            'cover_image' => 'nullable|string', 
             'status' => 'required|in:draft,published'
         ]);
     
@@ -108,12 +110,13 @@ class ArticleController extends Controller
                 'status' => $validated['status'],
                 'word_count' => $words,
                 'reading_time' => $readingTime,
-                // 'slug' => Str::slug($validated['title']),
+                // 'slug' sengaja tidak dimasukkan ke sini agar tidak berubah
             ]);
     
             return response()->json([
                 'status' => 'success',
                 'message' => 'Your handcrafted thought has been re-preserved.',
+                'slug' => $article->slug, // Kita tetap kirim slug yang lama ke frontend
                 'data' => $article
             ]);
     

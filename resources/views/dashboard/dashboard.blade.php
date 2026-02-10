@@ -36,9 +36,13 @@
         </div>
 
         <input type="text" class="editable-title w-full text-4xl md:text-5xl font-bold border-none focus:ring-0 placeholder-gray-200 mb-8 bg-transparent" placeholder="Give it a title..." autofocus>
-        
+
+        <div class="h-[1px] w-full bg-gray-300 my-2 rounded-full"></div>
+
+        @include('includes.rich-editor')
+
         <div id="editor" 
-             class="editable-content focus:outline-none min-h-[60vh] text-[19px] md:text-[21px] font-light leading-relaxed text-[#1a1a1a]" 
+             class="editable-content mt-4 focus:outline-none min-h-[60vh] text-[19px] md:text-[21px] font-light leading-relaxed text-[#1a1a1a]" 
              contenteditable="true" 
              placeholder="Share your handcrafted thoughts here..."></div>
     </main>
@@ -48,10 +52,21 @@
         <span id="toast-message" class="text-sm font-bold text-gray-600"></span>
     </div>
 
-    <div class="word-counter-box fixed bottom-8 right-8 border-none shadow-none bg-transparent opacity-40 hover:opacity-100 transition-opacity text-[13px] font-medium uppercase tracking-widest">
-        <span id="word-count" class="text-[#1a1a1a] font-black">0</span> words
+    <div class="word-counter-box fixed bottom-8 right-8 flex items-center gap-4 border-none shadow-none bg-transparent opacity-40 hover:opacity-100 transition-opacity">
+    
+        <div class="flex items-center gap-2">
+            <span class="text-[13px] font-black tracking-tighter text-gray-400">Rich Editor</span>
+            <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" id="toolbar-toggle" class="sr-only peer" onchange="toggleToolbar(this)">
+                <div class="w-8 h-4 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-black"></div>
+            </label>
+        </div>
+    
+        <div class="text-[13px] font-medium tracking-widest border-l border-gray-200 pl-4">
+            <span id="word-count" class="text-[#1a1a1a] font-black">0</span> words
+        </div>
     </div>
-
+        
     <div id="publishModal" class="fixed inset-0 z-[100] flex items-center justify-center opacity-0 pointer-events-none transition-opacity duration-300 p-4">
         <div onclick="closePublishModal()" class="absolute inset-0 bg-white/95 backdrop-blur-xl"></div>
         
@@ -250,15 +265,17 @@
                         body: JSON.stringify(data)
                     });
 
+                    // Ambil datanya dulu
+                    const result = await response.json();
+
                     if (response.ok) {
-                        // BERSIHKAN LOCALSTORAGE setelah berhasil simpan ke database
                         localStorage.removeItem('dwrite_temp_title');
                         localStorage.removeItem('dwrite_temp_content');
                         
-                        window.location.href = "{{ route('dashboard') }}?success=1";
+                        // Gunakan slug dari result untuk redirect ke halaman artikel
+                        window.location.href = "/read/" + result.slug;
                     } else {
-                        const err = await response.json();
-                        showToast(err.message || "Failed to save.", "error");
+                        showToast(result.message || "Failed to save.", "error");
                     }
                 } catch (e) {
                     showToast("Network error. Your words are still in the editor.", "error");

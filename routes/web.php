@@ -27,7 +27,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('/read', [ArticleController::class, 'index'])->name('articles.index');
+Route::get('/feed', [ArticleController::class, 'index'])->name('articles.index');
 Route::get('/read/{slug}', [ArticleController::class, 'show'])->name('articles.show');
 Route::get('/@{username}', [ArticleController::class, 'author'])->name('author.profile');
 

@@ -12,16 +12,88 @@
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/tokyo-night-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <style>
         body { 
             font-family: 'Outfit', sans-serif; 
-            letter-spacing: -0.015em; /* Sedikit lebih rapat agar lebih estetik */
+            letter-spacing: -0.015em; 
             word-spacing: 0.02em;
         }
         html { scroll-behavior: smooth; }
         
-        /* Menghapus gaya serif agar konsisten ke sans-serif */
         .serif { font-family: 'Outfit', sans-serif; }
+    
+        /* --- DISPLAY PAGE STYLING (articleContent) --- */
+    
+        #articleContent {
+            line-height: 1.8;
+            color: #1a1a1a;
+        }
+    
+        /* Bold Banget (900) */
+        #articleContent b, 
+        #articleContent strong {
+            font-weight: 900 !important;
+            color: #000;
+        }
+    
+        /* Typography Mapping */
+        #articleContent font[face="serif"] { font-family: 'Georgia', serif; }
+        #articleContent font[face="sans-serif"] { font-family: 'Outfit', sans-serif; }
+        #articleContent font[face="monospace"] { 
+            font-family: 'JetBrains Mono', monospace; 
+            font-size: 0.85em; 
+            color: #ce9178; /* Warna VS Code String */
+            background: #f8f9fa; 
+            padding: 2px 5px; 
+            border-radius: 4px; 
+        }
+    
+        /* Full Heading Scale */
+        #articleContent h1 { font-size: 2.5em; font-weight: 900; margin: 2rem 0 1rem; letter-spacing: -0.04em; line-height: 1.2; }
+        #articleContent h2 { font-size: 2em; font-weight: 800; margin: 1.8rem 0 0.8rem; letter-spacing: -0.03em; }
+        #articleContent h3 { font-size: 1.6em; font-weight: 700; margin: 1.5rem 0 0.6rem; }
+        #articleContent h4 { font-size: 1.3em; font-weight: 700; }
+        #articleContent h5 { font-size: 1.1em; font-weight: 800; text-transform: uppercase; color: #4b5563; }
+        #articleContent h6 { font-size: 1em; font-weight: 900; color: #9ca3af; text-transform: uppercase; }
+        
+        #articleContent p { margin-bottom: 1.5rem; }
+    
+        /* Blockquote */
+        #articleContent blockquote { 
+            border-left: 4px solid #1a1a1a; 
+            padding: 1rem 0 1rem 2rem; 
+            margin: 2.5rem 0; 
+            font-style: italic; 
+            font-size: 1.1em;
+            color: #374151; 
+            background: #f9f9f9;
+            border-radius: 0 16px 16px 0;
+        }  
+    
+        #articleContent pre code {
+            display: block;
+            padding: 1.5rem;
+            font-size: 0.7em;
+            line-height: 1.5;
+            overflow-x: auto; 
+            white-space: pre;
+            word-break: normal; 
+            word-wrap: normal;
+        }
+    
+        /* Custom Scrollbar tipis agar estetik */
+        #articleContent pre code::-webkit-scrollbar {
+            height: 8px;
+        }
+        #articleContent pre code::-webkit-scrollbar-thumb {
+            background: #3e3e3e;
+            border-radius: 10px;
+        }
+        #articleContent pre code::-webkit-scrollbar-thumb:hover {
+            background: #007acc;
+        }
     </style>
 </head>
 <body class="bg-white text-[#1a1a1a] antialiased">

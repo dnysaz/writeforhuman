@@ -150,6 +150,17 @@
             .editable-title { font-size: 2rem; }
             .sidebar { width: 250px; left: -240px; }
         }
+        
+        #editor-toolbar {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            /* Tambahkan display flex secara default jika belum ada */
+            display: flex; 
+        }
+
+        /* Style tambahan untuk switch agar terlihat sangat clean */
+        .peer-checked\:bg-black:checked ~ .peer {
+            background-color: #000;
+        }
     </style>
 </head>
 <body class="antialiased">
