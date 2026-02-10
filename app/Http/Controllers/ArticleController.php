@@ -169,9 +169,11 @@ class ArticleController extends Controller
 
     public function show($slug)
     {
-        $article = Article::where('slug', $slug)
-                        ->where('status', 'published')
-                        ->firstOrFail();
+        $article = Article::where('slug', $slug)->firstOrFail();
+
+        if ($article->status === 'draft') {
+            return view('articles.draft', compact('article'));
+        }
 
         return view('articles.read', compact('article'));
     }

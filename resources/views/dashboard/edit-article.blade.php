@@ -78,12 +78,12 @@
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18m-2 0v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6m3 0V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"></path></svg>
                     </div>
 
-                    <h2 class="text-2xl font-bold mb-2 tracking-tighter">Erase this thought?</h2>
+                    <h2 class="text-2xl font-bold mb-2 tracking-tighter">Delete this thought?</h2>
                     <p class="text-gray-400 text-sm mb-10 leading-relaxed font-medium px-4">This action cannot be undone. Your handcrafted entry will be permanently removed from the archive.</p>
                     
                     <div class="flex flex-col gap-3">
                         <button onclick="deleteArticle()" class="w-full bg-gray-800 text-white py-4 rounded-full font-bold text-[15px] hover:bg-gray-900 transition-all active:scale-[0.98]">
-                            Yes, erase permanently
+                            Yes, Delete!
                         </button>
                         <button @click="showDeleteModal = false; document.body.style.overflow = 'auto'" class="text-[13px] font-bold text-gray-400 hover:text-black py-2 transition">
                             No, keep it
